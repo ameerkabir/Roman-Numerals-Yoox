@@ -9,7 +9,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.disable("x-powered-by");
 
 app.use("/", apiRouter());
-console.log("is heating here");
 const server = app.listen(4000, () =>
   console.log(`Listening on http://localhost:${server.address().port}`)
 );

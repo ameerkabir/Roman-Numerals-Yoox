@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NumberToRoman from "./NumberToRoman";
 import axios from "axios";
 import RomanToNumber from "./RomanToNumber";
-import '../App.css'
+import "../App.css";
 
 class Converter extends Component {
   state = {
@@ -34,15 +34,7 @@ class Converter extends Component {
   };
   //toggle conversion
   toggleConversion = async e => {
-    //ToDo's
-    // have one input value
-    //handle error before even sending
-    //change errors.
     this.setState({ showConvert: !this.state.showConvert });
-    // this.setState({
-    //   endpoint: !this.state.endpoint
-    // })
-    // console.log(e);
   };
   //@ Handles return Roman from hanleNumber
   renderRomanValue = async e => {
@@ -68,7 +60,6 @@ class Converter extends Component {
     this.setState({ integer: e.target.value });
   };
   handleNumberToRoman = async e => {
-    
     e.preventDefault();
     try {
       const { integer } = this.state;
@@ -90,10 +81,8 @@ class Converter extends Component {
       const { roman } = this.state;
       const Api = await axios.post(`roman-to-numerial/?roman=${roman}`);
       const response = await Api;
-      console.log({ response });
       return response;
     } catch (err) {
-      console.error(err);
       this.logError(err);
     }
   };
@@ -133,10 +122,7 @@ class Converter extends Component {
         </div>
 
         <div className="row">
-          <button
-            className="swap-button"
-            onClick={this.toggleConversion}
-          >
+          <button className="swap-button" onClick={this.toggleConversion}>
             {" "}
             Swap conversion
           </button>

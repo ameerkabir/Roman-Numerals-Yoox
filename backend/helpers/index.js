@@ -1,6 +1,4 @@
 const converToRoman = num => {
-  // console.log("is being called");
-  // console.log({ num });
   let romans = {
     M: 1000,
     CM: 900,
@@ -20,12 +18,9 @@ const converToRoman = num => {
   for (let key in romans) {
     if (num >= romans[key]) {
       result += key.repeat(Math.trunc(num / romans[key]));
-      console.log(result);
       num -= romans[key] * Math.trunc(num / romans[key]);
     }
-    // console.log(romans[key])
   }
-  console.log({ result });
   return result;
 };
 
@@ -57,7 +52,6 @@ const converToInteger = roman => {
       //remove the matched Roman letter from the beginning
     }
   } 
-  console.log(result);
   return result;
 };
 

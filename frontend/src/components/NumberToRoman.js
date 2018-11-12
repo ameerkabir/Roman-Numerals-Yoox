@@ -2,7 +2,6 @@ import React from "react";
 import NumberResult from "./NumberResult"
  
 const NumberToRoman = ({ renderRomanValue, setIneger, integer, showRoman }) => {
-  console.log({showRoman})
   return (
       <div className="container">
         <h4 className="header">Number to Roman</h4>
