@@ -1,11 +1,17 @@
-const  {converToRoman} = require("../helpers/index");
+const { converToRoman } = require("../helpers/index");
+// const { isNumber } = require("../helpers/utill");
 const numericalToRoman = async (req, res, next) => {
-  // console.log("req body",req);
   const { number } = req.query;
+  // if (!isNumber(Number(number))) {
+  //   res.status(400).json({
+  //     success: false,
+  //     message: "Please choose a number between 1 and 3999",
+  //     number
+  //   });
+  // }
   try {
     const roman = await converToRoman(number);
-    console.log('back from the apiiiiiiiiiiiiiiii',{roman, number})
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       number,
       roman
