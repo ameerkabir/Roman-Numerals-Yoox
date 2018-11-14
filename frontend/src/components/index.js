@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import NumberToRoman from "./NumberToRoman";
+import Input from "./Input";
 import axios from "axios";
-import RomanToNumber from "./RomanToNumber";
 import "../App.css";
 
 class Converter extends Component {
   state = {
     integer: "",
-    showRoman: "",
+    ToShow: true,
     roman: "",
-    showNumber: 0,
-    hasError: false,
-    showConvert: true,
-    endpoint: "NumberToRoman/"
+    hasError: false
   };
+
+  //One input field
+
   componentDidCatch(error, info) {
     this.logError(error, info);
   }
@@ -32,97 +31,61 @@ class Converter extends Component {
         }, 3000)
     );
   };
-  //toggle conversion
-  toggleConversion = async e => {
-    this.setState({ showConvert: !this.state.showConvert });
+  
+  onClickHandler = () => {
+    this.setState({ ToShow: !this.state.ToShow });
   };
-  //@ Handles return Roman from hanleNumber
-  renderRomanValue = async e => {
-    try {
-      const convertedNumber = await this.handleNumberToRoman(e);
-      const RomanNumber = convertedNumber.data.roman;
-      this.setState({ showRoman: RomanNumber });
-    } catch (err) {
-      this.logError(err);
-    }
-  };
-  //@ This function get the return number from the api and setState to the returend number
-  renderNumber = async e => {
-    try {
-      const convertedRoman = await this.handleRomanToNumber(e);
-      const receivedNumber = convertedRoman.data.number;
-      this.setState({ showNumber: receivedNumber });
-    } catch (err) {
-      this.logError(err);
-    }
-  };
-  setIneger = e => {
-    this.setState({ integer: e.target.value });
-  };
-  handleNumberToRoman = async e => {
-    e.preventDefault();
-    try {
-      const { integer } = this.state;
-      const Api = await axios.post(`numerial-to-roman/?number=${integer}`);
-      const response = await Api;
-      return response;
-    } catch (err) {
-      console.error(err);
-      this.logError(err);
-    }
-  };
-  setRomanNUmber = e => {
-    this.setState({ roman: e.target.value });
+  handleChang = e => {
+    console.log(e.target.valu);
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleRomanToNumber = async e => {
+  hanleSubmit = async e => {
     e.preventDefault();
+    // try {
+    // const {integer } = this.state;
+
+    // const api = await axios.post(`api/roman/?number=${integer}`);
+    // console.log(api)
     try {
-      const { roman } = this.state;
-      const Api = await axios.post(`roman-to-numerial/?roman=${roman}`);
-      const response = await Api;
-      return response;
+      const { roman, integer } = this.state;
+      let api = "";
+      if (integer !== "") {
+        api = await axios.post(`api/roman/?number=${integer}`);
+        const response = await api;
+        const romanValue = response.data.roman;
+        console.log({ romanValue });
+        this.setState({ roman: romanValue });
+      } else {
+        api = axios.post(`api/number?roman=${roman}`);
+        const response = await api;
+        const integerValue = response.data.number;
+        this.setState({ number: integerValue });
+        console.log(response);
+      }
     } catch (err) {
       this.logError(err);
     }
   };
-
   render() {
-    const {
-      integer,
-      showConvert,
-      showRoman,
-      roman,
-      hasError,
-      showNumber
-    } = this.state;
+    console.log(this.state.endpoint);
+    const { integer, roman, hasError, ToShow } = this.state;
     return (
       <div className="container">
         <div className="row">
-          {showConvert ? (
-            <div className="col">
-              <NumberToRoman
-                setIneger={this.setIneger}
-                integer={integer}
-                renderRomanValue={this.renderRomanValue}
-                showRoman={showRoman}
-              />
-            </div>
-          ) : (
-            <div className="col">
-              <RomanToNumber
-                renderNumber={this.renderNumber}
-                roman={roman}
-                setRomanNUmber={this.setRomanNUmber}
-                showNumber={showNumber}
-                showRoman={showRoman}
-              />
-            </div>
-          )}
+          <div className="col">
+            <Input
+              handleChang={this.handleChang}
+              hanleSubmit={this.hanleSubmit}
+              ToShow={ToShow}
+              integer={integer}
+              roman={roman}
+            />
+          </div>
         </div>
 
         <div className="row">
-          <button className="swap-button" onClick={this.toggleConversion}>
+          <button className="swap-button" onClick={this.onClickHandler}>
             {" "}
             Swap conversion
           </button>
