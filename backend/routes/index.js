@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const {catchErrors}  = require("../handlers/errorHandler");
-const numerialToRoman = require("../controllers/numerialToRoman");
+const numberToRoman = require("../controllers/numberToRoman");
 const homepage = require('../controllers/index')
-const romainToNumerical = require('../controllers/romainToNumerical')
+const romanToNumber = require('../controllers/romanToNumber')
 const api = () => {
   router.get("/", homepage)
-  router.post("/numerial-to-roman", numerialToRoman);
-   router.post("/roman-to-numerial", romainToNumerical);
+  router.post("/api/roman", numberToRoman);
+   router.post("/api/number", romanToNumber);
 
   return router;
 };
