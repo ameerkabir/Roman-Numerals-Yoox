@@ -11,8 +11,6 @@ class Converter extends Component {
     hasError: false
   };
 
-  //One input field
-
   componentDidCatch(error, info) {
     this.logError(error, info);
   }
@@ -31,7 +29,7 @@ class Converter extends Component {
         }, 3000)
     );
   };
-  
+
   onClickHandler = () => {
     this.setState({ ToShow: !this.state.ToShow });
   };
@@ -42,11 +40,6 @@ class Converter extends Component {
 
   hanleSubmit = async e => {
     e.preventDefault();
-    // try {
-    // const {integer } = this.state;
-
-    // const api = await axios.post(`api/roman/?number=${integer}`);
-    // console.log(api)
     try {
       const { roman, integer } = this.state;
       let api = "";
