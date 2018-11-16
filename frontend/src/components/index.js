@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Input from "./Input";
+import Result from "./Result";
 import axios from "axios";
 import "../App.css";
 
@@ -31,37 +32,36 @@ class Converter extends Component {
   };
 
   onClickHandler = () => {
-    this.setState({ ToShow: !this.state.ToShow });
+    const {ToShow} = this.state
+    this.setState({ ToShow: ToShow ? false : true });
   };
   handleChang = e => {
-    console.log(e.target.valu);
+
     this.setState({ [e.target.name]: e.target.value });
   };
 
   hanleSubmit = async e => {
     e.preventDefault();
     try {
-      const { roman, integer } = this.state;
+      const { roman, integer, ToShow } = this.state;
       let api = "";
-      if (integer !== "") {
+      if (ToShow) {
         api = await axios.post(`api/roman/?number=${integer}`);
         const response = await api;
         const romanValue = response.data.roman;
-        console.log({ romanValue });
         this.setState({ roman: romanValue });
       } else {
         api = axios.post(`api/number?roman=${roman}`);
         const response = await api;
         const integerValue = response.data.number;
-        this.setState({ number: integerValue });
-        console.log(response);
+        
+        this.setState({ integer: integerValue });
       }
     } catch (err) {
       this.logError(err);
     }
   };
   render() {
-    console.log(this.state.endpoint);
     const { integer, roman, hasError, ToShow } = this.state;
     return (
       <div className="container">
@@ -83,6 +83,7 @@ class Converter extends Component {
             Swap conversion
           </button>
         </div>
+        <Result roman={roman} ToShow={ToShow} integer={integer} />
         {hasError ? (
           <span className="error-msg">
             There was an error performing your requst, make sure you have a
