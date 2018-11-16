@@ -1,5 +1,4 @@
 import React from "react";
-import Result from "./Result"
 const NumberToRoman = ({ hanleSubmit, ToShow, handleChang, roman, integer }) => {
   return (
     <div className="container">
@@ -10,9 +9,9 @@ const NumberToRoman = ({ hanleSubmit, ToShow, handleChang, roman, integer }) => 
           {ToShow ? "Number to roman" : "Roman To Number"}
         </label>
         <input
-          type="text"
+          type={ToShow ? "number" : "text"}
           id="number"
-          defaultValue={ToShow ? integer : roman}
+          value={ToShow ? integer : roman}
           name={ToShow ? "integer" : "roman"}
           onChange={handleChang}
           placeholder={ToShow ? "0-9" : "IV" }
@@ -21,7 +20,6 @@ const NumberToRoman = ({ hanleSubmit, ToShow, handleChang, roman, integer }) => 
           Convert
         </button>
       </form>
-      < Result roman={roman} ToShow={ToShow} integer={integer}/>
     </div>
   );
 };
