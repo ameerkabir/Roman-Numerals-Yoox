@@ -1,8 +1,8 @@
 import React from "react";
-const Result = ({ ToShow, roman, integer }) => {
+const Result = ({ toShow, roman, integer }) => {
   return (
     <div className="result">
-      {ToShow ? <div> {roman}</div> : <div>{integer}</div>}
+      {toShow ? <div> {roman}</div> : <div>{integer}</div>}
     </div>
   );
 };

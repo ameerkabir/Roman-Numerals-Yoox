@@ -7,7 +7,7 @@ import "../App.css";
 class Converter extends Component {
   state = {
     integer: "",
-    ToShow: true,
+    toShow: true,
     roman: "",
     hasError: false
   };
@@ -32,8 +32,8 @@ class Converter extends Component {
   };
 
   onClickHandler = () => {
-    const {ToShow} = this.state
-    this.setState({ ToShow: ToShow ? false : true });
+    const {toShow} = this.state
+    this.setState({ toShow: toShow ? false : true });
   };
   handleChang = e => {
 
@@ -43,9 +43,9 @@ class Converter extends Component {
   hanleSubmit = async e => {
     e.preventDefault();
     try {
-      const { roman, integer, ToShow } = this.state;
+      const { roman, integer, toShow } = this.state;
       let api = "";
-      if (ToShow) {
+      if (toShow) {
         api = await axios.post(`api/roman/?number=${integer}`);
         const response = await api;
         const romanValue = response.data.roman;
@@ -62,7 +62,7 @@ class Converter extends Component {
     }
   };
   render() {
-    const { integer, roman, hasError, ToShow } = this.state;
+    const { integer, roman, hasError, toShow } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -70,7 +70,7 @@ class Converter extends Component {
             <Input
               handleChang={this.handleChang}
               hanleSubmit={this.hanleSubmit}
-              ToShow={ToShow}
+              toShow={toShow}
               integer={integer}
               roman={roman}
             />
@@ -83,7 +83,7 @@ class Converter extends Component {
             Swap conversion
           </button>
         </div>
-        <Result roman={roman} ToShow={ToShow} integer={integer} />
+        <Result roman={roman} toShow={toShow} integer={integer} />
         {hasError ? (
           <span className="error-msg">
             There was an error performing your requst, make sure you have a
