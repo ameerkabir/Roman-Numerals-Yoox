@@ -1,6 +1,6 @@
 const { converToRoman } = require("../helpers/index");
 // const { isNumber } = require("../helpers/utill");
-const numberToRoman = async (req, res, next) => {
+const numberToRoman = async (req, res) => {
   const { number } = req.query;
   try {
     const roman = await converToRoman(number);
